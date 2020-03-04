@@ -1,7 +1,10 @@
 #!/usr/bin/python3.7
 
 import json
-import adjacencyList as alist
+import adjacencyList 
+import incidenceMatrix
+import adjacencyMatrix
+
 
 def readDataFromFile(fileName):
     data = {}
@@ -14,4 +17,11 @@ def readDataFromFile(fileName):
         exit(-1)
 
     if data['type'] == 'adjacency_list':
-        return alist.AdjacencyList(data['data'])
+        return adjacencyList.AdjacencyList(data['data'])
+    elif data['type'] == 'incidence_matrix':
+        return incidenceMatrix.IncidenceMatrix(data['data'])
+    elif data['type'] == 'adjacency_matrix':
+        return adjacencyMatrix.AdjacencyMatrix(data['data'])
+    else:
+        print("Unknown type of data!")
+        exit()

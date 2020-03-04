@@ -2,11 +2,14 @@
 
 import sys
 import math
+import dataReader
 import networkx as nx
 import matplotlib.pyplot as plt
 
-nodes_number = int(sys.argv[1])
-radius = float(sys.argv[2])
+nodeList = dataReader.readDataFromFile("dataTask2.json")
+
+nodes_number = nodeList.numberOfNodes
+radius = 8
 alpha = 2*math.pi / nodes_number
 
 x_0 = 20
@@ -14,20 +17,22 @@ y_0 = 20
 
 positions = {}
 
-for i in range(nodes_number + 1):
-    positions.update({i:(x_0 + radius*math.cos(i*alpha), y_0 + radius*math.sin(i*alpha))})
+for i in range(1,len(nodeList.nodeList.keys())+1):
+    nodeList.nodeList[int(i)] = nodeList.nodeList.pop(str(i))
+
+for i in range(nodes_number):
+    positions.update(
+        {(i+1): (x_0 + radius*math.cos(i*alpha), y_0 + radius*math.sin(i*alpha))})
 
 
-adjacency = [(i+1,(i+1)%(nodes_number) + 1) for i in range(nodes_number)]
-print (adjacency)
-G = nx.Graph()
-G.add_nodes_from([i for i in range(nodes_number)])
-G.add_edges_from(adjacency)
-# print (G.nodes)
+print(positions)
+G = nx.from_dict_of_lists(nodeList.nodeList)
+
 plt.subplot(121).axis('off')
 plt.tight_layout()
-nx.draw_networkx_nodes(G,positions)
-nx.draw_networkx_edges(G,positions)
-nx.draw_networkx_labels(G,positions, with_labels=True)
+print(G.nodes)
+nx.draw_networkx_nodes(G, pos=positions)
+nx.draw_networkx_edges(G, pos=positions)
+nx.draw_networkx_labels(G, pos=positions)
 
 plt.show()
