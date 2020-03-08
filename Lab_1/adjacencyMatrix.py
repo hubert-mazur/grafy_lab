@@ -27,6 +27,9 @@ class AdjacencyMatrix:
                 print(self.matrix[i][j], end=' ')
             print("", end="\n")
 
+    def exportToAdjacencyMatrix(self):
+        return self
+
     def exportToAdjacencyList(self):
         aList = {}
         nodeList = []

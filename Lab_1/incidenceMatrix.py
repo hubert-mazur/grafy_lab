@@ -25,6 +25,9 @@ class IncidenceMatrix:
                 print(self.matrix[j][i], end=" ")
             print("")
 
+    def exportToIncidenceMatrix(self):
+        return self
+
     def exportToAdjacencyList(self):
         adjList = {(i+1): [] for i in range(self.numberOfNodes)}
 
