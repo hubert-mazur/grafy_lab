@@ -15,6 +15,9 @@ class AdjacencyList:
         for i in self.nodeList.keys():
             print(str(i) + ': ' + str(self.nodeList[i]))
 
+    def exportToAdjacencyList(self):
+        return self
+
     def exportToAdjacencyMatrix(self):
         matrix = [[0 for _ in range(self.numberOfNodes)]
                   for _ in range(self.numberOfNodes)]
