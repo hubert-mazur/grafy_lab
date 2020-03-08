@@ -49,3 +49,4 @@ class AdjacencyList:
             incDict.update({str(i+1): incMatrix[i][:]})
                 
         return incidenceMatrix.IncidenceMatrix({'list': incDict, 'position': self.positions, 'colors': self.colors})
+
