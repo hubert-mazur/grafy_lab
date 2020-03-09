@@ -7,9 +7,6 @@
 2. When adding new library add it to requirements.txt
 
 3. Folder Hierarchy
-    Utils
-        -> necessary classes such as graph represantations, graphs, edges
-    Tasks
-        -> all of the tasks from laboratories
-    Examples
-        -> all executable examples of tasks
+    * Utils -> necessary classes such as graph represantations, graphs, edges
+    * Tasks -> all of the tasks from laboratories
+    * Examples -> all executable examples of tasks
