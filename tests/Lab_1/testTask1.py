@@ -1,13 +1,14 @@
 #!/usr/bin/python3.7
-
+import sys
+sys.path.insert(0,'../../modules/')
 import dataReader as reader
 
 print ('# adjacencyList to others')
 
-aList = reader.readDataFromFile("testData1.json")
+aList = reader.readDataFromFile("data/testTask1Data1.json")
 aList.prettyPrint()
 
-aMatrix = aList.exportToAdajcencyMatrix()
+aMatrix = aList.exportToAdjacencyMatrix()
 aMatrix.prettyPrint()
 
 aIndiceMatrix = aList.exportToIncidenceMatrix()
@@ -15,7 +16,7 @@ aIndiceMatrix.prettyPrint()
 
 print('#adjacencyMatrix to others')
 
-aMatrix2 = reader.readDataFromFile("testData2.json")
+aMatrix2 = reader.readDataFromFile("testTask2Data2.json")
 aMatrix2.prettyPrint()
 
 aList2 = aMatrix2.exportToAdjacencyList()
@@ -26,7 +27,7 @@ aIndiceMatrix2.prettyPrint()
 
 print('#incidenceMatrix to others')
 
-aIndiceMatrix3 = reader.readDataFromFile("testData3.json")
+aIndiceMatrix3 = reader.readDataFromFile("testTask3Data3.json")
 aIndiceMatrix3.prettyPrint()
 
 aMatrix3 = aIndiceMatrix3.exportToAdjacencyMatrix()

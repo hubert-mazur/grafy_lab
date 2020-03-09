@@ -3,12 +3,13 @@
 # najwieksza wspolna skladowa na grafie
 
 import sys
-sys.path.insert(0, '../Lab_1/')
-
+sys.path.insert(0, '../../modules/')
+sys.path.insert(0,'../../Lab_2/')
 import dataReader
 import task3
 
-graph = dataReader.readDataFromFile('testData1.json')
+
+graph = dataReader.readDataFromFile('data/testTask3Data.json')
 graph = graph.exportToAdjacencyList()
 
 arr = task3.components(graph)

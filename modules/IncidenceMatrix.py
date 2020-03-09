@@ -1,5 +1,5 @@
-import adjacencyMatrix
-import adjacencyList
+import AdjacencyMatrix
+import AdjacencyList
 
 
 class IncidenceMatrix:
@@ -39,7 +39,7 @@ class IncidenceMatrix:
             adjList[index[0]].append(index[1])
             adjList[index[1]].append(index[0])
 
-        return adjacencyList.AdjacencyList({'list': adjList, 'position': self.positions, 'colors': self.colors})
+        return AdjacencyList.AdjacencyList({'list': adjList, 'position': self.positions, 'colors': self.colors})
 
     def exportToAdjacencyMatrix(self):
         adjMatrix = [[ 0 for _ in range(self.numberOfNodes)] for _ in range(self.numberOfNodes)]
@@ -57,4 +57,4 @@ class IncidenceMatrix:
         for i in range(self.numberOfNodes):
             adjDict.update({str(i+1):adjMatrix[i][:]})
         
-        return adjacencyMatrix.AdjacencyMatrix({'list': adjDict, 'position': self.positions, 'colors': self.colors})
+        return AdjacencyMatrix.AdjacencyMatrix({'list': adjDict, 'position': self.positions, 'colors': self.colors})

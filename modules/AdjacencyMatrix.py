@@ -1,7 +1,7 @@
 #!/usr/bin/python3.7
 
-import adjacencyList
-import incidenceMatrix
+import AdjacencyList
+import IncidenceMatrix
 
 class AdjacencyMatrix:
 
@@ -41,7 +41,7 @@ class AdjacencyMatrix:
                     nodeList.append(j+1)
             aList.update({(i+1): nodeList[:]})
 
-        return adjacencyList.AdjacencyList({'list': aList, 'position': self.positions, 'colors': self.colors})
+        return AdjacencyList.AdjacencyList({'list': aList, 'position': self.positions, 'colors': self.colors})
 
     def exportToIncidenceMatrix(self):
         incMatrix = []
@@ -58,5 +58,5 @@ class AdjacencyMatrix:
         for i in range(len(incMatrix)):
             incDict.update({str(i+1): incMatrix[i][:]})
 
-        return incidenceMatrix.IncidenceMatrix({'list':incDict, 'position':self.positions, 'colors':self.colors})
+        return IncidenceMatrix.IncidenceMatrix({'list':incDict, 'position':self.positions, 'colors':self.colors})
         

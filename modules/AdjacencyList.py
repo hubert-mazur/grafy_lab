@@ -1,5 +1,6 @@
-import adjacencyMatrix
-import incidenceMatrix
+import sys
+import AdjacencyMatrix
+import IncidenceMatrix
 
 class AdjacencyList:
 
@@ -31,7 +32,7 @@ class AdjacencyList:
         for i in range(len(matrix)):
             exportedMatrix.update({str(i+1):matrix[i]})
 
-        return adjacencyMatrix.AdjacencyMatrix({'position': self.positions, 'list': exportedMatrix, 'colors': self.colors})
+        return AdjacencyMatrix.AdjacencyMatrix({'position': self.positions, 'list': exportedMatrix, 'colors': self.colors})
 
     def exportToIncidenceMatrix(self):
         incMatrix = []
@@ -48,5 +49,5 @@ class AdjacencyList:
         for i in range(len(incMatrix)):
             incDict.update({str(i+1): incMatrix[i][:]})
                 
-        return incidenceMatrix.IncidenceMatrix({'list': incDict, 'position': self.positions, 'colors': self.colors})
+        return IncidenceMatrix.IncidenceMatrix({'list': incDict, 'position': self.positions, 'colors': self.colors})
 
