@@ -1,12 +1,11 @@
 #!/usr/bin/python3.7
 
-import sys
 import math
-import dataReader
 import networkx as nx
 import matplotlib.pyplot as plt
+import tasks.dataReader as dataReader
 
-nodeList = dataReader.readDataFromFile("dataTask2.json")
+nodeList = dataReader.readDataFromFile("examples/dataTask2.json")
 
 nodes_number = nodeList.numberOfNodes
 radius = 8
