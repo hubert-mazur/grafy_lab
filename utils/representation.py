@@ -1,8 +1,14 @@
+import copy
+
+
 class AdjacencyList:
     def __init__(self, data):
-        self.positions = data['position']
-        self.nodeList = data['list']
-        self.colors = data['colors']
+        self.positions = {int(i): data['position'][i][:]
+                          for i in data['position']}
+        self.nodeList = {int(i): data['list'][i][:]
+                         for i in data['list'].keys()}
+        self.colors = {int(i): data['colors'][i]
+                       for i in data['colors'].keys()}
         self.numberOfNodes = len(self.nodeList.keys())
 
     def prettyPrint(self):
@@ -20,21 +26,21 @@ class AdjacencyList:
 
         for i in self.nodeList.keys():
             for j in self.nodeList[i]:
-                matrix[int(i)-1][j-1] = 1
-                matrix[j-1][int(i)-1] = 1
+                matrix[i-1][j-1] = 1
+                matrix[j-1][i-1] = 1
         exportedMatrix = {}
 
         for i, item in enumerate(matrix):
-            exportedMatrix.update({str(i+1): item})
+            exportedMatrix.update({(i+1): item})
 
-        return AdjacencyMatrix({'position': self.positions, 'list': exportedMatrix, 'colors': self.colors})
+        return AdjacencyMatrix({'position': copy.deepcopy(self.positions), 'list': copy.deepcopy(exportedMatrix), 'colors': copy.deepcopy(self.colors)})
 
     def exportToIncidenceMatrix(self):
         incMatrix = []
         for i in self.nodeList.keys():
             for j in self.nodeList[i]:
                 col = [0 for _ in range(self.numberOfNodes)]
-                col[int(i)-1] = 1
+                col[i-1] = 1
                 col[j-1] = 1
 
                 if col not in incMatrix:
@@ -42,23 +48,25 @@ class AdjacencyList:
 
         incDict = {}
         for i, item in enumerate(incMatrix):
-            incDict.update({str(i+1): item})
+            incDict.update({(i+1): item})
 
-        return IncidenceMatrix({'list': incDict, 'position': self.positions, 'colors': self.colors})
+        return IncidenceMatrix({'list': incDict, 'position': copy.deepcopy(self.positions), 'colors': copy.deepcopy(self.colors)})
+
 
 class IncidenceMatrix:
     def __init__(self, data):
-        self.positions = data['position']
-
-        self.colors = data['colors']
+        self.positions = {int(i): data['position'][i][:]
+                          for i in data['position']}
+        self.colors = {int(i): data['colors'][i]
+                       for i in data['colors'].keys()}
         self.numberOfEdges = len(data['list'].keys())
-        self.numberOfNodes = len(data['list']['1'])
+        self.numberOfNodes = len(data['list'][list(data['list'].keys())[0]])
+        self.matrix = [[0 for _ in range(self.numberOfNodes)]
+                       for _ in range(self.numberOfEdges)]
 
-        self.matrix = [[0 for _ in range(self.numberOfNodes)] for _ in range(self.numberOfEdges)]
-
-        for i in range(self.numberOfEdges):
+        for i in data['list']:
             for j in range(self.numberOfNodes):
-                self.matrix[i][j] = data['list'][str(i+1)][j]
+                self.matrix[int(i)-1][j] = data['list'][i][j]
 
     def prettyPrint(self):
         print('-- Incidence Matrix --', end='\n\n')
@@ -82,10 +90,11 @@ class IncidenceMatrix:
             adjList[index[0]].append(index[1])
             adjList[index[1]].append(index[0])
 
-        return AdjacencyList({'list': adjList, 'position': self.positions, 'colors': self.colors})
+        return AdjacencyList({'list': adjList, 'position': copy.deepcopy(self.positions), 'colors': copy.deepcopy(self.colors)})
 
     def exportToAdjacencyMatrix(self):
-        adjMatrix = [[0 for _ in range(self.numberOfNodes)] for _ in range(self.numberOfNodes)]
+        adjMatrix = [[0 for _ in range(self.numberOfNodes)]
+                     for _ in range(self.numberOfNodes)]
 
         for i in range(len(self.matrix)):
             index = []
@@ -98,23 +107,26 @@ class IncidenceMatrix:
         adjDict = {}
 
         for i in range(self.numberOfNodes):
-            adjDict.update({str(i+1):adjMatrix[i][:]})
+            adjDict.update({i+1: adjMatrix[i][:]})
 
-        return AdjacencyMatrix({'list': adjDict, 'position': self.positions, 'colors': self.colors})
+        return AdjacencyMatrix({'list': adjDict, 'position': copy.deepcopy(self.positions), 'colors': copy.deepcopy(self.colors)})
+
 
 class AdjacencyMatrix:
     def __init__(self, data):
         self.numberOfNodes = len(data['list'].keys())
-        self.positions = data['position']
-        self.colors = data['colors']
+        self.positions = {int(i): data['position'][i][:]
+                          for i in data['position']}
+        self.colors = {int(i): data['colors'][i]
+                       for i in data['colors'].keys()}
 
-
-        self.matrix = [[0 for _ in range(self.numberOfNodes)] for _ in range(self.numberOfNodes)]
+        self.matrix = [[0 for _ in range(self.numberOfNodes)]
+                       for _ in range(self.numberOfNodes)]
 
         # indeksy w slowniku oznaczaja kolejne wiersze macierzy!
         matrixDict = data['list']
 
-        for j in range(len(matrixDict['1'])):
+        for j in range(len(matrixDict[list(matrixDict.keys())[0]])):
             for i in matrixDict.keys():
                 self.matrix[int(i)-1][j] = matrixDict[i][j]
 
@@ -139,7 +151,7 @@ class AdjacencyMatrix:
                     nodeList.append(j+1)
             aList.update({(i+1): nodeList[:]})
 
-        return AdjacencyList({'list': aList, 'position': self.positions, 'colors': self.colors})
+        return AdjacencyList({'list': aList, 'position': copy.deepcopy(self.positions), 'colors': copy.deepcopy(self.colors)})
 
     def exportToIncidenceMatrix(self):
         incMatrix = []
@@ -154,6 +166,6 @@ class AdjacencyMatrix:
         incDict = {}
 
         for i, item in enumerate(incMatrix):
-            incDict.update({str(i+1): item})
+            incDict.update({i+1: item})
 
-        return IncidenceMatrix({'list':incDict, 'position':self.positions, 'colors':self.colors})
+        return IncidenceMatrix({'list': incDict, 'position': copy.deepcopy(self.positions), 'colors': copy.deepcopy(self.colors)})
