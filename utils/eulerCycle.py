@@ -23,7 +23,7 @@ def eulerCycle(G):
             print('No Euler cycle in graph')
             exit()
 
-    currentNode = str(1)
+    currentNode = 1
     eulerCycleList = [1]
     while True:
         value = selectNextNode(G, currentNode)
