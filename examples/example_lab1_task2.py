@@ -16,7 +16,7 @@ y_0 = 20
 
 positions = {}
 
-for i in range(1,len(nodeList.nodeList.keys())+1):
+for i in range(1, len(nodeList.nodeList.keys())+1):
     nodeList.nodeList[int(i)] = nodeList.nodeList.pop(str(i))
 
 for i in range(nodes_number):

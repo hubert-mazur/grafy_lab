@@ -39,21 +39,14 @@ def rand_graph_edge_probability(n, p):
         networkx graph creation
     '''
     gRep = [[] for _ in range(n)]
-    pair = []
     gTup = []
-    while True:
-        v1 = randint(0, n-1)
-        v2 = randint(0, n-1)
-        while v1 == v2:
-            v2 = randint(0, n-1)
-        if (v1, v2) not in pair and (v2, v1) not in pair:
-            pair.append((v1, v2))
+    for v1 in range(n):
+        for v2 in range(n):
+            if v1 == v2:
+                continue
             r = random()
-            if r <= p and v1 not in gRep[v2] and v2 not in gRep[v1]:
+            if r <= p:
                 gRep[v1].append(v2)
                 gRep[v2].append(v1)
                 gTup.append((v1, v2))
-        if len(pair) == n*(n-1)/2:
-            break
     return gRep, gTup
-        
