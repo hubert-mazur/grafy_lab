@@ -9,4 +9,3 @@ import tasks.lab1_task2 as t2
 nodeList = dataReader.readDataFromFile("./dataTask2.json")
 G = nodeList.exportToAdjacencyList()
 t2.drawNodesOnCircle(G)
-

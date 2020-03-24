@@ -9,7 +9,7 @@ def random_k_regular_graph():
         :retun: returns list of list for representation and list of tuple for networkx graph creation
     '''
     maxn = 20
-    minn = 1
+    minn = 2
     n = randint(minn, maxn)
     k = randint(0, n-1)
     while (n*k)%2 != 0:
@@ -22,6 +22,7 @@ def random_k_regular_graph():
         return gRep, gTup
     node_edge = [k for _ in range(n)]
     print("n=", n, "k=", k)
+    iterN = 0
     while True:
         v1, v2 = randint(0, n-1), randint(0, n-1)
         while v1 == v2:
@@ -34,12 +35,14 @@ def random_k_regular_graph():
             v2 = node_edge.index(1, v1)
             fill_graph_and_reduce_k(v1, v2, gRep, gTup, node_edge)
         if (v1, v2) not in pair and (v2, v1) not in pair:
-            print(node_edge)
             pair.append((v1, v2))
             if v1 not in gRep[v2] and v2 not in gRep[v1] and node_edge[v1] > 0 and node_edge[v2] > 0:
                 fill_graph_and_reduce_k(v1, v2, gRep, gTup, node_edge)
         if sum(node_edge) == 0:
             break
+        iterN = iterN + 1
+        if iterN >= 1000:
+            return False, False
     return gRep, gTup
 
 def fill_graph_and_reduce_k(v1, v2, gRep, gTup, node_edge):
