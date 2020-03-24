@@ -2,7 +2,6 @@ import math
 import networkx as nx
 import matplotlib.pyplot as plt
 
-
 def drawNodesOnCircle(G):
     nodes_number = G.numberOfNodes
     radius = 8
