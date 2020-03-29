@@ -1,32 +1,15 @@
 #!/usr/bin/python3.7
 
 from utils.dijkstra import dijkstra
-from tasks.lab3_task1 import random_weighted_graph as rwg
-from utils.representation import AdjacencyList
+from tasks.lab3_task2 import lab3_task2
 
-numberOfNodes = 8
-numberOfEdges = 19
 
-ret = rwg(numberOfNodes, numberOfEdges)[1]
+def lab3_task3(numberOfNodes, numberOfEdges):
+    ret = lab3_task2(numberOfNodes, numberOfEdges)
 
-dictOfEdges = {(i, j): z['weight'] for i, j, z in ret}
+    distanceMatrix = [[] for i in range(numberOfNodes)]
 
-adjList = {i: [] for i in range(numberOfNodes)}
+    for i in range(numberOfNodes):
+        distanceMatrix[i].extend(*[dijkstra(ret[0], ret[1], i)[0].values()])
 
-for i, j in dictOfEdges.keys():
-    adjList[i].append(j)
-    adjList[j].append(i)
-
-Graph = AdjacencyList({'list': adjList, 'position': {}, 'colors': {}})
-
-# print(f'shortest_paths:  {dijkstra(Graph, dictOfEdges, 0)[0]}')
-
-distanceMatrix = [[] for i in range(numberOfNodes)]
-
-for i in range(numberOfNodes):
-    distanceMatrix[i].extend(*[dijkstra(Graph, dictOfEdges, i)[0].values()])
-
-for i in distanceMatrix:
-    for j in i:
-        print(j, end=' ')
-    print('')
+    return distanceMatrix
