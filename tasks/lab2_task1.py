@@ -14,10 +14,10 @@ def degree_seq(A, n):
     while True:
         if max(A_sorted) == min(A_sorted) == 0:
             return True
-        elif A_sorted[0] < 0 or A_sorted[0] >= n or max(A_sorted) < 0:
+        elif A_sorted[0] < 0 or A_sorted[0] >= n or min(A_sorted) < 0:
             return False
 
-        for i in range(1, A_sorted[0]):
+        for i in range(1, A_sorted[0] + 1):
             A_sorted[i] = A_sorted[i] - 1
 
         A_sorted[0] = 0
