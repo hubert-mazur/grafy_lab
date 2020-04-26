@@ -14,9 +14,6 @@ if degree_seq(A, len(A)):
     randomized_edges_list = [tuple(i) for i in A_randomized]
 
     print_graph(edges_list)
-
-    print("\nRandomized edges list")
-    print(randomized_edges_list)
     print_graph(randomized_edges_list)
 
 else: 

@@ -11,14 +11,12 @@ def degree_seq(A, n):
         wychodzacych z poszczegolnych wierzcholkow) jest ciagiem graficznym , zwraca True/False
     '''
     A_sorted = sorted(A, reverse = True)
-    print (A_sorted)
     # warunek na nieparzysta liczbe nieparzystych cyfr w A 
     if sum(i%2 for i in A_sorted)%2:
         return False 
     
     while True:
         if max(A_sorted) == min(A_sorted) == 0: 
-            print("Returning becase all are 0 ({})".format(A_sorted))
             return True 
         elif A_sorted[0] < 0 or A_sorted[0] >= n or max(A_sorted) < 0:
             return False
@@ -48,11 +46,8 @@ def create_adjacency_list(A):
     #stworz liste list, podlista zawiera: nr wierzcholka, stopien wierzcholka, 
     #licznik odnotowanych polaczen (krawedzi) z danego wierzcholka
     nodes_status = [[node_idx, grade, 0] for node_idx, grade in enumerate(A) ]
-    print(nodes_status)
- 
     adjacency_list = set()
 
-    print("Will try to set up {} edges".format(edges))
     # na wszelki wypadek sortuje liste malejaco po ilosci dostepnych slotow
     nodes_status = sorted(nodes_status, key=lambda x: x[1], reverse=True)
     for i in range(edges):
@@ -68,10 +63,6 @@ def create_adjacency_list(A):
                 nodes_status[0][2] += 1
                 node[2] += 1
                 break
-        else:
-            print("This node is already connected to all nodes:", nodes_status[0])
-            print(nodes_status)
-
   
     result_list = [list(f_set) for f_set in adjacency_list]
     result_list.sort(key=lambda x: (x[0], x[1]))
@@ -79,49 +70,33 @@ def create_adjacency_list(A):
     return result_list
 
 
-def uniq(lst):
-    last = object()
-    for item in lst:
-        if item == last:
-            continue
-        yield item
-        last = item
-
-def sort_and_deduplicate(l):
-    return list(uniq(sorted(l, reverse=True)))
-
 def randomize_edges(A):
     '''
         wylosuj dwie krawedzie z list_of_edges, sprobuj je zamienic ze soba (pomieszac ich wierzcholki),
-        sprawdz czy takie krawedzie  nie wystepuja w secie pierwotnym - jesli nie -
-        zapisz zamienione krawedzie do tablicy wynikowej,- jesli tak - wylosuj ponownie krawedzie do randomizacji
+        sprawdz czy takie krawedzie  nie wystepuja w liscie pierwotnej - jesli nie -
+        zapisz zamienione krawedzie do listy wynikowej,- jesli tak - wylosuj ponownie krawedzie do randomizacji
     '''
     list_of_edges = create_adjacency_list(A)
     edges_copy = deepcopy(list_of_edges)
-    print("czy jestem tutaj ")
-    print("\nEdges list before randomisation:")
-    print(list_of_edges)
+ 
     while True:
         first_edge, second_edge = random.sample(edges_copy, 2)
-        new_first_edge, new_second_edge = (first_edge[0], second_edge[1]), (second_edge[0], first_edge[1]) #pylint: disable=unsubscriptable-object
+        new_first_edge, new_second_edge = [first_edge[0], second_edge[1]], [second_edge[0], first_edge[1]] 
 
         if not(new_first_edge[0] == new_first_edge[1] or new_second_edge[0] == new_second_edge[1]):
 
-            new_first_edge, new_second_edge = sort_and_deduplicate(new_first_edge), sort_and_deduplicate(new_second_edge)
-
-            # set_of_edges = sort_and_deduplicate(f_set for f_set in list_of_edges)
             if (new_first_edge not in list_of_edges and new_first_edge[::-1] not in list_of_edges) and  \
                 (new_second_edge not in list_of_edges  and new_second_edge[::-1] not in list_of_edges):
 
                 edges_copy.remove(first_edge)
                 edges_copy.remove(second_edge)
 
-                edges_copy.append(list(new_first_edge))
-                edges_copy.append(list(new_second_edge))
+                edges_copy.append(new_first_edge)
+                edges_copy.append(new_second_edge)
 
-                print("\nRandomized edges")
-                print(first_edge, second_edge)
-                print(new_first_edge, new_second_edge)
+                # print("\nRandomized edges")
+                # print(first_edge, second_edge)
+                # print(new_first_edge, new_second_edge)
 
                 break
 
@@ -153,4 +128,4 @@ def print_graph(edges_list):
 
     
     # plt.savefig("graph.png") # save as png
-    plt.show() # display
+    plt.show() 
