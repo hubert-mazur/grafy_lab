@@ -20,6 +20,7 @@ def generateEulerGraph(n=10):
 
     adList = aList(verticeDegrees)
     print(adList)
+    print(len(adList))
     adjacencyList = {i: [] for i in range(n)}
     for i, j in adList:
         adjacencyList[i].append(j)

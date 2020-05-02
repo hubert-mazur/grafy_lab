@@ -1,20 +1,28 @@
 #!/usr/bin/python3.7
 
-def selectNextNode(G, currentNode):
-    neighbourList = G.nodeList[currentNode]
-    if len(neighbourList) == 0:
+from tasks.lab2_task3 import components
+import copy
+
+
+def selectNextNode(G, currentNode, no_s_connected):
+    if len(G.nodeList[currentNode]) == 0:
         return -666
 
+    neighbourList = copy.deepcopy(G.nodeList[currentNode])
+    # print(neighbourList)
     for i in neighbourList:
-        if len(G.nodeList[i]) > 1:
-            G.nodeList[i].remove(int(currentNode))
-            G.nodeList[currentNode].remove(i)
+        G.nodeList[i].remove(int(currentNode))
+        G.nodeList[currentNode].remove(i)
+        if max(components(G)) > no_s_connected and neighbourList.index(i) != len(neighbourList) - 1:
+            G.nodeList[i].append(currentNode)
+            G.nodeList[currentNode].append(i)
+        else:
             return i
 
-    valueToDelete = neighbourList[0]
-    G.nodeList[currentNode].remove(neighbourList[0])
-    G.nodeList[valueToDelete].clear()
-    return valueToDelete
+    # valueToDelete = neighbourList[0]
+    # G.nodeList[currentNode].remove(neighbourList[0])
+    # G.nodeList[valueToDelete].clear()
+    # return valueToDelete
 
 
 def eulerCycle(G):
@@ -25,11 +33,15 @@ def eulerCycle(G):
 
     currentNode = 1
     eulerCycleList = [1]
+    no_s_connected = max(components(G))
     while True:
-        value = selectNextNode(G, currentNode)
+        value = selectNextNode(G, currentNode, no_s_connected)
+        no_s_connected = max(components(G))
         if value != -666:
             eulerCycleList.append(value)
             currentNode = value
         else:
+            print("Cykl Eulera:\n")
             print(eulerCycleList)
+            # print(len(eulerCycleList))
             break
