@@ -18,11 +18,13 @@ for i in range(n):
     positions.update(
         {i: (x_0 + radius*cos(i*alpha), y_0 + radius*sin(i*alpha))})
 
-mypgraph.sort(key=lambda x: x[0])
-print(mypgraph, mypegdes)
+print(mypgraph)
 graphP = nx.DiGraph()
 for i, item in enumerate(positions):
     graphP.add_node(i, pos=item)
 graphP.add_edges_from(mypegdes)
-nx.draw(graphP, pos=positions, with_labels=True, font_weight='bold')
+labels = nx.get_edge_attributes(graphP, 'weight')
+nx.draw(graphP, pos=positions)
+nx.draw_networkx_labels(graphP, pos=positions)
+nx.draw_networkx_edge_labels(graphP, pos=positions, edge_labels=labels, font_color='red')
 plt.show()
