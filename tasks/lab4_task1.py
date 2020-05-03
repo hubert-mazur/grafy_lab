@@ -1,4 +1,4 @@
-from random import random
+from random import random, randint
 
 def rand_digraph_edge_probability(n, p):
     '''
@@ -16,13 +16,15 @@ def rand_digraph_edge_probability(n, p):
             if v1 == v2:
                 continue
             r = random()
-            if r <= p and (v2, "to") not in gRep[v1] and (v1, "from") not in gRep[v2]:
-                gRep[v1].append((v2, "to"))
-                gRep[v2].append((v1, "from"))
-                gTup.append((v1, v2))
+            if r <= p and all(False for v in gRep[v2] if v[0] == v1) and all(False for v in gRep[v1] if v[0] == v2):
+                w = randint(-5, 10)
+                gRep[v1].append((v2, "to", {'weight': w}))
+                gRep[v2].append((v1, "from", {'weight': w}))
+                gTup.append((v1, v2, {'weight': w}))
             r = random()
-            if r <= p and (v2, "from") not in gRep[v1] and (v1, "to") not in gRep[v2]:
-                gRep[v1].append((v2, "from"))
-                gRep[v2].append((v1, "to"))
-                gTup.append((v2, v1))
+            if r <= p and all(False for v in gRep[v2] if v[0] == v1) and all(False for v in gRep[v1] if v[0] == v2):
+                w = randint(-5, 10)
+                gRep[v1].append((v2, "from", {'weight': w}))
+                gRep[v2].append((v1, "to", {'weight': w}))
+                gTup.append((v2, v1, {'weight': w}))
     return gRep, gTup
