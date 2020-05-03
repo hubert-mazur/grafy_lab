@@ -2,4 +2,4 @@
 
 from tasks.lab2_task4 import generateEulerGraph
 
-generateEulerGraph()
+generateEulerGraph(15)

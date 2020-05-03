@@ -3,7 +3,8 @@ import json
 import sys
 from utils.representation import AdjacencyList, AdjacencyMatrix, IncidenceMatrix
 
-def readDataFromFile(fileName):
+
+def readDataFromFile(fileName: str):
     data = {}
     try:
         with open(file=fileName, mode="r") as file:

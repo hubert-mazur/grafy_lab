@@ -45,7 +45,7 @@ def rand_graph_edge_probability(n, p):
             if v1 == v2:
                 continue
             r = random()
-            if r <= p:
+            if r <= p and (v1, v2) not in gTup and (v2, v1) not in gTup:
                 gRep[v1].append(v2)
                 gRep[v2].append(v1)
                 gTup.append((v1, v2))
