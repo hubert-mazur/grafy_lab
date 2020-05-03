@@ -18,7 +18,6 @@ for i in range(n):
     positions.update(
         {i: (x_0 + radius*cos(i*alpha), y_0 + radius*sin(i*alpha))})
 
-mypgraph.sort(key=lambda x: x[0])
 print(mypgraph, mypegdes)
 graphP = nx.DiGraph()
 for i, item in enumerate(positions):
