@@ -23,9 +23,7 @@ def kosaraju(GRep):
 def dfs_visit(v, GRep, d, f, t):
     t = t + 1
     d[v] = t
-    print(v, GRep)
-    tempG = [i for i, l in GRep[v] if l == 'to']
-    print(tempG)
+    tempG = [i for i, l, w in GRep[v] if l == 'to']
     for u in tempG: #Przejście po krawędzi (v, u)
         if d[v] == -1:
             dfs_visit(u, GRep, d, f, t)
@@ -33,7 +31,8 @@ def dfs_visit(v, GRep, d, f, t):
     f[v] = t #W implementacji ze stosem: tutaj należy dodać v do stosu.
 
 def components_r(nr, v, GT, comp):
-    tempG = [i for i, u in enumerate(GT) if (i, 'to') in GT[v]]
+    print()
+    tempG = [i for i, l, w in GT[v] if l == 'to']
     for u in tempG:
         if comp[u] == -1:
             comp[u] = nr
@@ -44,7 +43,7 @@ def transpose_graph(G):
     for v in GT:
         for i, e in enumerate(v):
             if e[1] == 'to':
-                v[i] = (e[0], 'from')
+                v[i] = (e[0], 'from', e[2])
             else:
-                v[i] = (e[0], 'to')
+                v[i] = (e[0], 'to', e[2])
     return GT
