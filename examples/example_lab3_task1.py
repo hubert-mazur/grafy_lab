@@ -1,10 +1,17 @@
+import sys
 from math import cos, sin, pi
 import networkx as nx
 import matplotlib.pyplot as plt
 import tasks.lab3_task1 as t1
 
-n = 10
+n = 7
 mylgraph, mylegdes = t1.random_weighted_graph(n, 20)
+# mylgraph, mylegdes = t1.rand_weigted_graph_edge_probability(n, 0.5)
+# mylgraph, mylegdes = t1.random_k_regular_graph()
+# if not mylgraph and not mylgraph:
+#     print("Nie udało się stworzyć grafu")
+#     sys.exit()
+# n = len(mylgraph)
 radius = 8
 alpha = 2*pi / n
 
