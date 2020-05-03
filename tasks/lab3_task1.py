@@ -22,7 +22,7 @@ def random_weighted_graph(n, l):
             v2 = randint(0, n-1)
         if (v1, v2) not in pair and (v2, v1) not in pair:
             pair.append((v1, v2))
-            if v1 not in gRep[v2] and v2 not in gRep[v1]:
+            if all(False for v in gRep[v2] if v[0] == v1) and all(False for v in gRep[v1] if v[0] == v2):
                 w = randint(1, 10)
                 gRep[v1].append((v2, {'weight': w}))
                 gRep[v2].append((v1, {'weight': w}))
