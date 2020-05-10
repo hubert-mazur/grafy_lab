@@ -1,6 +1,9 @@
 from math import inf
 
-from utils.dijkstra import get_weight
+
+def get_weight(weights, u, v):
+    if weights.__contains__((u, v)):
+        return weights[(u, v)]
 
 
 def bellman_ford(g_rep, weights, start):

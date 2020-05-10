@@ -8,19 +8,18 @@ from copy import deepcopy
 
 def johnson(g_rep, g_tup, weights, n):
     g_rep_prim, g_tup_prim, weights_prim = add_node_to_graph(g_rep, g_tup, n, weights)
-    # d, p, bool = bellman_ford(g_rep_prim, {(i, j): z['weight'] for i, j, z in g_tup_prim}, n )
-    d, p, bool = bellman_ford(g_rep_prim, weights_prim, n )
+    d, p, bool = bellman_ford(g_rep_prim, weights_prim, n)
+    print(weights_prim)
     if not bool:
         print("G zawiera cykl o ujemnej wadze")
         exit(-1)
 
     h = d
-
     w = {(u, v): weights_prim[(u, v)] + h[u] - h[v] for (u, v) in weights_prim.keys()}
-    print(w)
+
     D = [[inf for j in range(n)] for i in range(n)]
 
-    adjList = {i: [] for i in range(n + 1)}
+    adjList = {i: [] for i in range(n)}
     for i, j in weights.keys():
         adjList[i].append(j)
         adjList[j].append(i)
@@ -29,7 +28,7 @@ def johnson(g_rep, g_tup, weights, n):
 
     for u in range(n):
         d_prim, p_prim = dijkstra(G, w, u)
-        print(f'd_prim {u}:', d_prim)
+        # print(f'd_prim {u}:', d_prim)
         for v in range(n):
             D[u][v] = d_prim[v] - h[u] + h[v]
     return D
