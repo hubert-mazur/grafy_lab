@@ -22,7 +22,6 @@ def johnson(g_rep, g_tup, weights, n):
     adjList = {i: [] for i in range(n)}
     for i, j in weights.keys():
         adjList[i].append(j)
-        adjList[j].append(i)
 
     G = AdjacencyList({'list': adjList, 'position': {}, 'colors': {}})
 
