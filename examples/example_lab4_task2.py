@@ -4,8 +4,16 @@ import matplotlib.pyplot as plt
 import tasks.lab4_task1 as t1
 import tasks.lab4_task2 as t2
 
-n = 10
-mypgraph, mypegdes = t1.rand_digraph_edge_probability(n, 0.2)
+n = 5
+# mypgraph, mypegdes = t1.rand_digraph_edge_probability(n, 0.2)
+# Przykład podany jako niepoprawny poniżej
+mypgraph = [[(1, 'to', {'weight': 5}), (2, 'from', {'weight': 0}), (3, 'from', {'weight': -1}), 
+(4, 'to', {'weight': 8})], [(0, 'from', {'weight': 5}), (3, 'to', {'weight': 5})], 
+[(0, 'to', {'weight': 0}), (3, 'to', {'weight': 4})], [(0, 'to', {'weight': -1}), (1, 'from', {'weight': 5}),
+(2, 'from', {'weight': 4})], [(0, 'from', {'weight': 8})]]
+mypegdes = [(0, 1, {'weight': 5}), (2, 0, {'weight': 0}), (3, 0, {'weight': -1}),
+(0, 4, {'weight': 8}), (1, 3, {'weight': 5}), (2, 3, {'weight': 4})]
+###########
 comp = t2.kosaraju(mypgraph)
 print(comp)
 

@@ -17,8 +17,8 @@ def kosaraju(GRep):
     for v in G: # w kolejności malejących czasów f[v]
         if comp[v] == -1:
             nr[0] = nr[0] + 1
-        comp[v] = nr[0]
-        components_r(nr, v, GTRep, comp)
+            comp[v] = nr[0]
+            components_r(nr, v, GTRep, comp)
     return comp
 
 def dfs_visit(v, GRep, d, f, t):
