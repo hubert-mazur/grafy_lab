@@ -1,4 +1,4 @@
-from tasks.lab5_task2 import BSF, FordFulkerson, print_graph, 
+from tasks.lab5_task2 import BSF, FordFulkerson, print_graph
 import networkx as nx
 
 # list_of_edges = [(0,1,10),(0,2,9),(1,2,6),(1,3,5),(2,4,8),(4,1,4),(4,3,2),(4,5,7),(3,5,9)]
